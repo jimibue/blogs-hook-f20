@@ -32,6 +32,7 @@ const FetchUser = (props) => {
       const res = await Axios.get("/api/auth/validate_token");
       setUser(res.data.data);
     } catch (err) {
+      setUser(null);
       console.log(err);
       console.log("unable to validate token");
     } finally {
