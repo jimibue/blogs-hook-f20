@@ -18,9 +18,7 @@ const Blogs = (props) => {
         setBlogs(res.data);
       })
       .catch((err) => {
-        //TODO add error handling when api setup
-        setBlogs(blogs_X);
-        // alert('get todos not working')
+        alert("get todos not working");
       });
   });
 
