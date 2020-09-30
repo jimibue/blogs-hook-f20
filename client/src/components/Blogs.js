@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { List, Header, Segment } from "semantic-ui-react";
+import BlogForm from "./BlogForm";
 
 let blogs_X = [
   { id: 1, title: "Blog1", body: "this is the body", user_id: "1" },
@@ -20,7 +21,7 @@ const Blogs = (props) => {
       .catch((err) => {
         alert("get todos not working");
       });
-  });
+  }, []);
 
   const renderBlogs = () => {
     return blogs.map((blog) => (
@@ -31,9 +32,15 @@ const Blogs = (props) => {
     ));
   };
 
+  // expecting blog to be {title, name}
+  const addBlog = (blog) => {
+    console.log(blog);
+  };
   return (
     <>
       <Header as="h1">My Blogs</Header>
+      <BlogForm add={addBlog} />
+      <BlogForm add={addBlog} x="hello" />
       <br />
       <List>{renderBlogs()}</List>
     </>
