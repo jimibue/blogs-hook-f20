@@ -1,25 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { List, Header, Segment } from "semantic-ui-react";
 
-class Blogs extends React.Component {
-  state = {
-    blogs: [
-      { id: 1, title: "Blog1", body: "this is the body", user_id: "1" },
-      { id: 2, title: "Blog2", body: "this is the body 2", user_id: "1" },
-    ],
-  };
+let blogs_X = [
+  { id: 1, title: "Blog1", body: "this is the body", user_id: "1" },
+  { id: 2, title: "Blog2", body: "this is the body 2", user_id: "1" },
+];
+const Blogs = (props) => {
+  const [blogs, setBlogs] = useState([]);
 
   // API NOT UP YET
-  // componentDidMount() {
-  //   axios.get("/api/blogs")
-  //     .then( res => {
-  //       this.setState({ blogs: res.data, });
-  //     })
-  // }
+  useEffect(() => {
+    axios
+      .get("/api/blogs")
+      .then((res) => {
+        // expecting res.data to be an array of blogs
+        setBlogs(res.data);
+      })
+      .catch((err) => {
+        //TODO add error handling when api setup
+        setBlogs(blogs_X);
+        // alert('get todos not working')
+      });
+  });
 
-  renderBlogs = () => {
-    const { blogs } = this.state;
+  const renderBlogs = () => {
     return blogs.map((blog) => (
       <Segment key={blog.id}>
         <List.Header as="h3">{blog.title}</List.Header>
@@ -28,15 +33,13 @@ class Blogs extends React.Component {
     ));
   };
 
-  render() {
-    return (
-      <>
-        <Header as="h1">My Blogs</Header>
-        <br />
-        <List>{this.renderBlogs()}</List>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <Header as="h1">My Blogs</Header>
+      <br />
+      <List>{renderBlogs()}</List>
+    </>
+  );
+};
 
 export default Blogs;
