@@ -23,8 +23,6 @@ class Api::BlogsController < ApplicationController
   private
 
   def blog_params
-    # commentted for testing uncomment when FRONTEND UP
-    # params.require(:blog).permit(:title, :body)
-    params.permit(:title, :body)
+    params.require(:blog).permit(:title, :body)
   end
 end
