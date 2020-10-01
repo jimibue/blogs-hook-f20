@@ -6,4 +6,6 @@ Rails.application.routes.draw do
 
     resources :blogs, only: [:index, :create]
   end
+
+  get "*other", to: "static#index"
 end
